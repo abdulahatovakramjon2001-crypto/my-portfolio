@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akramjon Abdulaxatov</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <!-- Floating shapes -->
+  <div class="floating-shapes" aria-hidden="true">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+    <div class="shape shape-6"></div>
+    <div class="shape shape-7"></div>
+  </div>
+
+  <header>
+    <div class="logo">&lt;MyPortfolio /&gt;</div>
+    <nav>
+      <a href="#about"    data-i18n="nav.about">Haqimda</a>
+      <a href="#skills"   data-i18n="nav.skills">Ko'nikmalar</a>
+      <a href="#projects" data-i18n="nav.projects">Loyihalar</a>
+      <a href="#contact"  data-i18n="nav.contact">Aloqa</a>
+    </nav>
+    <div class="header-controls">
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-uz" onclick="setLang('uz')">UZ</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">RU</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Tema">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="about">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <img src="photo_2026-06-07_14-28-18.jpg" alt="Akramjon Abdulaxatov" class="avatar-img" />
+      </div>
+    </div>
+    <h1><span class="name">Akramjon Abdulaxatov</span></h1>
+    <p class="neon-desc">
+      <span class="neon-word">PROF LASER</span>
+      <span data-i18n="hero.mid">korxonasi va</span>
+      <span class="neon-word">KOSIB.UZ</span>
+      <span data-i18n="hero.end">SRM dasturi asoschisi</span>
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Skills -->
+  <div class="section" id="skills">
+    <div class="section-label reveal" data-i18n="skills.label">Texnologiyalar</div>
+    <h2 class="reveal" data-i18n="skills.h2">Ko'nikmalar</h2>
+    <div class="skill-desc-grid stagger-group">
+      <div class="skill-desc-card">
+        <div class="skill-desc-icon">🤖</div>
+        <h3 data-i18n="prompt.h3">Prompt Injenerlik</h3>
+        <p data-i18n="prompt.p">Sun'iy intellekt bilan ishlashda chuqur tajribaga egaman. ChatGPT, Claude va boshqa AI modellaridan professional darajada foydalanib, biznes muammolarini samarali hal qilaman. Har qanday vazifa uchun to'g'ri prompt tuzish — mening kuchli tomonim.</p>
+      </div>
+      <div class="skill-desc-card">
+        <div class="skill-desc-icon">⚡</div>
+        <h3 data-i18n="laser.h3">Lazer Mutaxassisligi</h3>
+        <p data-i18n="laser.p">PROF LASER korxonasi asoschisi sifatida lazer texnologiyalari sohasida keng bilim va amaliy tajribaga egaman. Lazer o'ymakorlik, kesish va ishlov berish bo'yicha mutaxassis bo'lib, zamonaviy uskunalar bilan ishlayman.</p>
+      </div>
+      <div class="skill-desc-card">
+        <div class="skill-desc-icon">💻</div>
+        <h3 data-i18n="vibe.h3">Vibe Coder</h3>
+        <p data-i18n="vibe.p">KOSIB.UZ SRM dasturining asoschisi va yaratuvchisi. Zamonaviy vibe coding uslubida — AI yordamida tez, sifatli va chiroyli dasturiy mahsulotlar yarataman. Kod yozish endi san'at, va bu san'atni sevaman.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Projects -->
+  <div class="section" id="projects">
+    <div class="section-label reveal" data-i18n="projects.label">Portfolio</div>
+    <h2 class="reveal" data-i18n="projects.h2">Loyihalar</h2>
+    <div class="projects stagger-group">
+      <div class="card neon-card">
+        <span class="card-icon">⚡</span>
+        <h3>PROF LASER</h3>
+        <p data-i18n="profLaser.p">O'zbekistondagi oyoq kiyim ishlab chiqaruvchilar uchun ixtisoslashgan lazer xizmatlari korxonasi. Charm va sun'iy materiallarni lazer bilan kesish, o'ymakorlik va ishlov berish xizmatlarini professional darajada taqdim etadi. Zamonaviy lazer uskunalari yordamida mahsulot sifati va ishlab chiqarish tezligini sezilarli oshiradi.</p>
+        <div class="card-tags">
+          <span class="tag" data-i18n="tag.cut">Lazer Kesish</span>
+          <span class="tag" data-i18n="tag.engrave">O'ymakorlik</span>
+          <span class="tag" data-i18n="tag.leather">Charm Ishlov</span>
+          <span class="tag">B2B</span>
+        </div>
+        <button class="contact-btn" onclick="openModal('PROF LASER')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span data-i18n="contact.btn">Murojaat qoldirish</span>
+        </button>
+      </div>
+      <div class="card neon-card">
+        <span class="card-icon">🖥️</span>
+        <h3>KOSIB.UZ</h3>
+        <p data-i18n="kosib.p">Oyoq kiyim ishlab chiqaruvchilari uchun maxsus yaratilgan CRM dasturiy ta'minot. Buyurtmalarni boshqarish, mijozlar bazasi, ishlab chiqarish jarayonini kuzatish va moliyaviy hisobotlarni bir tizimda jamlaydi. Korxona samaradorligini oshirish va vaqtni tejash uchun mo'ljallangan zamonaviy yechim.</p>
+        <div class="card-tags">
+          <span class="tag">CRM</span>
+          <span class="tag" data-i18n="tag.order">Buyurtma Boshqaruv</span>
+          <span class="tag" data-i18n="tag.finance">Moliyaviy Hisobot</span>
+          <span class="tag">SaaS</span>
+        </div>
+        <button class="contact-btn" onclick="openModal('KOSIB.UZ')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span data-i18n="contact.btn">Murojaat qoldirish</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Contact -->
+  <div class="section" id="contact">
+    <div class="section-label reveal" data-i18n="contact.label">Muloqot</div>
+    <h2 class="reveal" data-i18n="contact.h2">Aloqa</h2>
+    <div class="social-icons stagger-group">
+      <a href="https://instagram.com/PROF_LASER" target="_blank" rel="noopener" class="social-btn instagram">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#f09433"/>
+              <stop offset="25%"  stop-color="#e6683c"/>
+              <stop offset="50%"  stop-color="#dc2743"/>
+              <stop offset="75%"  stop-color="#cc2366"/>
+              <stop offset="100%" stop-color="#bc1888"/>
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="url(#ig-grad)" stroke-width="1.8" fill="none"/>
+          <circle cx="12" cy="12" r="4.2" stroke="url(#ig-grad)" stroke-width="1.8" fill="none"/>
+          <circle cx="17.2" cy="6.8" r="1.1" fill="url(#ig-grad)"/>
+        </svg>
+      </a>
+      <a href="https://t.me/PROF_LASER" target="_blank" rel="noopener" class="social-btn telegram">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" fill="#229ED9"/>
+          <path d="M17.5 7.5L5.5 12l4 1.5 1.5 4 2-3 3.5 2.5L17.5 7.5z" fill="white"/>
+        </svg>
+      </a>
+      <a href="tel:+998904057801" class="social-btn phone">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="10" fill="#25D366"/>
+          <path d="M16.5 14.5c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.5-.6c.1-.2.2-.3.2-.5 0-.2-.7-1.8-.9-2.4-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4C6.5 7.8 6 8.7 6 9.8c0 1.1.8 2.2 1 2.4.1.2 1.5 2.4 3.7 3.4.5.2.9.4 1.2.5.5.2 1 .1 1.3-.1.4-.2 1.2-.5 1.4-1 .2-.5.2-.9.1-1-.1-.1-.3-.2-.7-.4z" fill="white"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span data-i18n="footer.text">&copy; 2026 Akramjon Abdulaxatov. Barcha huquqlar himoyalangan.</span>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="modal-header">
+        <span class="modal-icon">📩</span>
+        <h2 id="modal-title"></h2>
+        <p id="modal-sub"></p>
+      </div>
+      <form class="modal-form" onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label data-i18n="form.name">Ism Familiya</label>
+          <input type="text" data-i18n-ph="form.ph.name" placeholder="Masalan: Akramjon Abdulaxatov" required />
+        </div>
+        <div class="form-group">
+          <label data-i18n="form.activity">Faoliyat turi</label>
+          <input type="text" data-i18n-ph="form.ph.activity" placeholder="Masalan: Oyoq kiyim ishlab chiqarish" required />
+        </div>
+        <div class="form-group">
+          <label data-i18n="form.phone">Telefon raqam</label>
+          <input type="tel" placeholder="+998 XX XXX XX XX" required />
+        </div>
+        <div class="form-group">
+          <label data-i18n="form.email">Email manzil</label>
+          <input type="email" placeholder="email@example.com" required />
+        </div>
+        <button type="submit" class="form-submit" data-i18n="form.submit">Yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
