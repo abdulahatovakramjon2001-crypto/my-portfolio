@@ -23,28 +23,32 @@ async function loadCurrencyRates() {
   }
 }
 
-// ── Ob-havo (Open-Meteo, Toshkent) ──
+// ── Ob-havo (OpenWeatherMap, Marg'ilon) ──
 async function loadWeather() {
   try {
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=40.4736&longitude=71.7278&current=temperature_2m,weather_code&timezone=Asia%2FTashkent';
+    const key = '8a5f0c93887df008622bd665b4a790bb';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=Margilan,UZ&appid=${key}&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
-    const temp = Math.round(data.current.temperature_2m);
-    const code = data.current.weather_code;
 
-    const icons = {
-      0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
-      45:'🌫️', 48:'🌫️',
-      51:'🌦️', 53:'🌦️', 55:'🌧️',
-      61:'🌧️', 63:'🌧️', 65:'🌧️',
-      71:'❄️', 73:'❄️', 75:'❄️',
-      80:'🌦️', 81:'🌧️', 82:'⛈️',
-      95:'⛈️', 96:'⛈️', 99:'⛈️',
-    };
-    const icon = icons[code] ?? '🌡️';
+    const temp  = Math.round(data.main.temp);
+    const feels = Math.round(data.main.feels_like);
+    const id    = data.weather[0].id;
+
+    let icon;
+    if (id === 800)               icon = '☀️';
+    else if (id === 801)          icon = '🌤️';
+    else if (id >= 802 && id <= 804) icon = id === 804 ? '☁️' : '⛅';
+    else if (id >= 700 && id < 800)  icon = '🌫️';
+    else if (id >= 600 && id < 700)  icon = '❄️';
+    else if (id >= 500 && id < 600)  icon = '🌧️';
+    else if (id >= 300 && id < 400)  icon = '🌦️';
+    else if (id >= 200 && id < 300)  icon = '⛈️';
+    else                             icon = '🌡️';
 
     document.getElementById('weather-icon').textContent = icon;
-    document.getElementById('weather-temp').textContent = temp + '°C';
+    document.getElementById('weather-temp').textContent = `${temp}°C`;
+    document.getElementById('weather-widget').title = `His qilinadi: ${feels}°C · ${data.weather[0].description}`;
   } catch (e) {
     document.getElementById('weather-icon').textContent = '🌡️';
     document.getElementById('weather-temp').textContent = '--°C';
