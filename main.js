@@ -1,4 +1,28 @@
 
+// ── NBU valyuta kurslari ──
+async function loadCurrencyRates() {
+  try {
+    const res = await fetch('https://cbu.uz/uz/arkhiv-kursov-valyut/json/');
+    const data = await res.json();
+    const find = (code) => data.find(c => c.Ccy === code);
+
+    const usd = find('USD'), eur = find('EUR'), rub = find('RUB'), cny = find('CNY');
+
+    if (usd) document.getElementById('rate-usd').textContent = Number(usd.Rate).toLocaleString('uz-UZ');
+    if (eur) document.getElementById('rate-eur').textContent = Number(eur.Rate).toLocaleString('uz-UZ');
+    if (rub) {
+      const rubPer100 = (Number(rub.Rate) * 100).toLocaleString('uz-UZ', {maximumFractionDigits: 0});
+      document.getElementById('cur-rub').innerHTML =
+        `<span class="cur-flag">🇷🇺</span> 100 RUB <span class="cur-rate" id="rate-rub">${rubPer100}</span> so'm`;
+    }
+    if (cny) document.getElementById('rate-cny').textContent = Number(cny.Rate).toLocaleString('uz-UZ');
+
+    if (usd) document.getElementById('cur-date').textContent = usd.Date;
+  } catch (e) {
+    console.warn('Valyuta kurslari yuklanmadi:', e);
+  }
+}
+
 // ── Particles canvas ──
 function initParticles() {
   const canvas = document.getElementById('particles');
@@ -411,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   setLang(currentLang);
   initParticles();
+  loadCurrencyRates();
   initScrollReveal();
   initStagger();
   initHeader();

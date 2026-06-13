@@ -216,11 +216,64 @@ body::before {
   100% { transform: translateY(0px)   rotate(360deg) scale(1); }
 }
 
+/* ── Currency bar ── */
+.currency-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: rgba(6, 6, 16, 0.92);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  backdrop-filter: blur(12px);
+  padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.currency-ticker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.currency-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+.cur-flag { font-size: 0.9rem; }
+
+.cur-rate {
+  font-weight: 700;
+  color: var(--accent-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.cur-divider {
+  color: rgba(255,255,255,0.15);
+  font-size: 0.75rem;
+}
+
+.cur-date {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.25);
+  margin-left: 8px;
+}
+
 /* ── Header ── */
 header {
   position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
+  top: 33px; left: 0; right: 0;
+  z-index: 1000;
   padding: 18px 48px;
   display: flex;
   justify-content: space-between;
