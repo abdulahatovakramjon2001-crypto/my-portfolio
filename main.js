@@ -26,7 +26,7 @@ async function loadCurrencyRates() {
 // ── Ob-havo (Open-Meteo, Toshkent) ──
 async function loadWeather() {
   try {
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=41.2995&longitude=69.2401&current=temperature_2m,weather_code&timezone=Asia%2FTashkent';
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=40.4736&longitude=71.7278&current=temperature_2m,weather_code&timezone=Asia%2FTashkent';
     const res = await fetch(url);
     const data = await res.json();
     const temp = Math.round(data.current.temperature_2m);
