@@ -246,7 +246,6 @@ const translations = {
     'nav.about':      "Haqimda",
     'nav.skills':     "Ko'nikmalar",
     'nav.projects':   "Loyihalar",
-    'nav.contract':   "Shartnoma",
     'nav.contact':    "Aloqa",
     'hero.mid':       "korxonasi va",
     'hero.end':       "SRM dasturi asoschisi",
@@ -285,7 +284,6 @@ const translations = {
     'nav.about':      "About",
     'nav.skills':     "Skills",
     'nav.projects':   "Projects",
-    'nav.contract':   "Contract",
     'nav.contact':    "Contact",
     'hero.mid':       "company and",
     'hero.end':       "founder of KOSIB.UZ CRM",
@@ -324,7 +322,6 @@ const translations = {
     'nav.about':      "Обо мне",
     'nav.skills':     "Навыки",
     'nav.projects':   "Проекты",
-    'nav.contract':   "Договор",
     'nav.contact':    "Контакт",
     'hero.mid':       "компания и",
     'hero.end':       "основатель CRM системы KOSIB.UZ",
@@ -481,228 +478,10 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// ── Shartnoma ──
-let currentContractType = 'laser';
-
-function selectContract(type) {
-  currentContractType = type;
-  document.getElementById('ctype-laser').classList.toggle('active', type === 'laser');
-  document.getElementById('ctype-kosib').classList.toggle('active', type === 'kosib');
-  document.getElementById('contract-preview-wrap').style.display = 'none';
-}
-
-function getContractData() {
-  const name     = document.getElementById('cf-name').value.trim();
-  const passport = document.getElementById('cf-passport').value.trim();
-  const address  = document.getElementById('cf-address').value.trim();
-  const phone    = document.getElementById('cf-phone').value.trim();
-  const amount   = Number(document.getElementById('cf-amount').value);
-  const desc     = document.getElementById('cf-desc').value.trim();
-  const deadline = document.getElementById('cf-deadline').value.trim();
-  const dateVal  = document.getElementById('cf-date').value;
-
-  if (!name || !passport || !address || !phone || !amount || !desc || !deadline || !dateVal) {
-    alert("Iltimos, barcha maydonlarni to'ldiring!");
-    return null;
-  }
-
-  const date = new Date(dateVal);
-  const months = ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"];
-  const dateStr = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} yil`;
-  const half = Math.round(amount / 2).toLocaleString('uz-UZ');
-  const total = amount.toLocaleString('uz-UZ');
-  const num = Math.floor(Math.random() * 900 + 100);
-  const contractNum = `${num}/${date.getFullYear()}`;
-
-  return { name, passport, address, phone, amount, total, half, desc, deadline, dateStr, contractNum };
-}
-
-function buildContractHTML(d) {
-  const isLaser = currentContractType === 'laser';
-  const service = isLaser ? 'PROF LASER' : 'KOSIB.UZ';
-  const role    = isLaser ? 'Pudratchi' : 'Dasturchi';
-  const art1p   = isLaser
-    ? `Pudratchi Buyurtmachining buyurtmasiga ko'ra lazer kesish, o'ymakorlik va material ishlov berish xizmatlarini bajaradi.`
-    : `Dasturchi Buyurtmachining buyurtmasiga ko'ra KOSIB.UZ CRM dasturiy ta'minoti xizmatlarini taqdim etadi.`;
-
-  return `
-    <h3>XIZMATLAR KO'RSATISH SHARTNOMASI</h3>
-    <div class="c-number">№ ${d.contractNum}</div>
-    <div class="c-header-row">
-      <span>Marg'ilon shahri</span>
-      <span>${d.dateStr}</span>
-    </div>
-    <div class="c-intro">
-      Bir tomondan, <strong>"${service}"</strong> nomidan ish yurituvchi
-      <strong>Abdulaxatov Akramjon Ibrohimovich</strong>
-      (keyingi o'rinlarda <em>"${role}"</em> deb yuritiladi),
-      ikkinchi tomondan, <strong>${d.name}</strong>, passport/STIR: <strong>${d.passport}</strong>,
-      manzil: <strong>${d.address}</strong>
-      (keyingi o'rinlarda <em>"Buyurtmachi"</em> deb yuritiladi),
-      quyidagi shartnomani tuzdilar:
-    </div>
-
-    <div class="c-article">
-      <div class="c-article-title">1. Shartnoma predmeti</div>
-      <p>1.1. ${art1p}</p>
-      <p>1.2. Xizmat tavsifi: ${d.desc}</p>
-    </div>
-
-    <div class="c-article">
-      <div class="c-article-title">2. Tomonlarning majburiyatlari</div>
-      <p>2.1. ${role} majburiyatlari: xizmatni sifatli va o'z vaqtida bajarish; Buyurtmachi talablarini inobatga olish; xizmat natijasi to'g'risida xabardor etish.</p>
-      <p>2.2. Buyurtmachi majburiyatlari: to'lovlarni belgilangan tartibda amalga oshirish; zarur ma'lumot va materiallarni o'z vaqtida taqdim etish.</p>
-    </div>
-
-    <div class="c-article">
-      <div class="c-article-title">3. Narx va to'lov tartibi</div>
-      <p>3.1. Xizmatning umumiy narxi: <strong>${d.total} so'm</strong>.</p>
-      <p>3.2. Oldindan to'lov (50%): <strong>${d.half} so'm</strong> — shartnoma imzolangandan so'ng 1 ish kuni ichida.</p>
-      <p>3.3. Qoldiq to'lov (50%): <strong>${d.half} so'm</strong> — xizmat to'liq yakunlangandan so'ng.</p>
-      <p>3.4. To'lov naqd pul yoki bank o'tkazmasi orqali amalga oshiriladi.</p>
-    </div>
-
-    <div class="c-article">
-      <div class="c-article-title">4. Muddatlar</div>
-      <p>4.1. Xizmat bajarish muddati: <strong>${d.deadline}</strong>.</p>
-      <p>4.2. Muddat shartnoma imzolangan va oldindan to'lov amalga oshirilgan kundan hisoblanadi.</p>
-      <p>4.3. Kechikish holati yuzaga kelsa, ${role} Buyurtmachini 1 ish kuni oldin xabardor etadi.</p>
-    </div>
-
-    <div class="c-article">
-      <div class="c-article-title">5. Maxfiylik</div>
-      <p>5.1. Tomonlar shartnoma doirasidagi barcha ma'lumotlarni maxfiy saqlash majburiyatini oladilar.</p>
-    </div>
-
-    <div class="c-article">
-      <div class="c-article-title">6. Nizolarni hal etish</div>
-      <p>6.1. Nizolar avvalo muzokaralar yo'li bilan hal etiladi. Kelishuv bo'lmasa, O'zbekiston Respublikasi qonunchiligiga muvofiq sud tartibida ko'rib chiqiladi.</p>
-    </div>
-
-    <div class="c-signatures">
-      <div class="c-sign-block">
-        <div class="c-article-title">${role}:</div>
-        <p><strong>Abdulaxatov Akramjon Ibrohimovich</strong></p>
-        <p>"${service}"</p>
-        <p>Tel: +998 90 405 78 01</p>
-        <p>Marg'ilon shahri, O'zbekiston</p>
-        <div class="c-sign-line">Imzo: ___________________</div>
-      </div>
-      <div class="c-sign-block">
-        <div class="c-article-title">Buyurtmachi:</div>
-        <p><strong>${d.name}</strong></p>
-        <p>Passport/STIR: ${d.passport}</p>
-        <p>Tel: ${d.phone}</p>
-        <p>${d.address}</p>
-        <div class="c-sign-line">Imzo: ___________________</div>
-      </div>
-    </div>`;
-}
-
-function previewContract() {
-  const d = getContractData();
-  if (!d) return;
-  const wrap = document.getElementById('contract-preview-wrap');
-  document.getElementById('contract-doc').innerHTML = buildContractHTML(d);
-  wrap.style.display = 'block';
-  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function downloadContractPDF() {
-  const d = getContractData();
-  if (!d) return;
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-
-  const isLaser = currentContractType === 'laser';
-  const service = isLaser ? 'PROF LASER' : 'KOSIB.UZ';
-  const role    = isLaser ? 'Pudratchi' : 'Dasturchi';
-  const art1p   = isLaser
-    ? "Pudratchi lazer kesish, o'ymakorlik va material ishlov berish xizmatlarini bajaradi."
-    : "Dasturchi KOSIB.UZ CRM dasturiy ta'minoti xizmatlarini taqdim etadi.";
-
-  const L = 20, RW = 170, lh = 6.5;
-  let y = 20;
-
-  const center = (text, yy) => { doc.text(text, 105, yy, { align: 'center' }); };
-  const line   = (text, yy, x) => { doc.text(text, x ?? L, yy); };
-  const wrap   = (text, yy, maxW) => {
-    const lines = doc.splitTextToSize(text, maxW ?? RW);
-    doc.text(lines, L, yy);
-    return yy + lines.length * lh;
-  };
-  const title  = (text, yy) => {
-    doc.setFont('helvetica', 'bold');
-    doc.text(text, L, yy);
-    doc.setFont('helvetica', 'normal');
-    return yy + lh;
-  };
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(13);
-  center("XIZMATLAR KO'RSATISH SHARTNOMASI", y); y += 7;
-  doc.setFontSize(11);
-  center(`No ${d.contractNum}`, y); y += 10;
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  line("Marg'ilon shahri", y);
-  line(d.dateStr, y, 130); y += 10;
-
-  y = wrap(`Bir tomondan, "${service}" nomidan ish yurituvchi Abdulaxatov Akramjon Ibrohimovich ("${role}"), ikkinchi tomondan, ${d.name}, passport/STIR: ${d.passport}, manzil: ${d.address} ("Buyurtmachi"), quyidagi shartnomani tuzdilar:`, y); y += 4;
-
-  y = title("1. SHARTNOMA PREDMETI", y);
-  y = wrap(`1.1. ${art1p}`, y); y += 2;
-  y = wrap(`1.2. Xizmat tavsifi: ${d.desc}`, y); y += 6;
-
-  y = title("2. TOMONLARNING MAJBURIYATLARI", y);
-  y = wrap(`2.1. ${role}: xizmatni sifatli va o'z vaqtida bajarish; Buyurtmachi talablarini inobatga olish.`, y); y += 2;
-  y = wrap("2.2. Buyurtmachi: to'lovlarni o'z vaqtida amalga oshirish; zarur materiallarni taqdim etish.", y); y += 6;
-
-  y = title("3. NARX VA TO'LOV TARTIBI", y);
-  y = wrap(`3.1. Umumiy narx: ${d.total} so'm.`, y); y += 2;
-  y = wrap(`3.2. Oldindan to'lov (50%): ${d.half} so'm — shartnoma imzolangandan so'ng 1 ish kuni ichida.`, y); y += 2;
-  y = wrap(`3.3. Qoldiq to'lov (50%): ${d.half} so'm — xizmat yakunlangandan so'ng.`, y); y += 6;
-
-  y = title("4. MUDDATLAR", y);
-  y = wrap(`4.1. Xizmat bajarish muddati: ${d.deadline}.`, y); y += 2;
-  y = wrap("4.2. Muddat oldindan to'lov amalga oshirilgan kundan hisoblanadi.", y); y += 6;
-
-  y = title("5. MAXFIYLIK VA NIZOLAR", y);
-  y = wrap("5.1. Tomonlar shartnoma ma'lumotlarini maxfiy saqlaydilar.", y); y += 2;
-  y = wrap("5.2. Nizolar muzokaralar yo'li, kelishuv bo'lmasa O'zbekiston qonunchiligiga muvofiq hal etiladi.", y); y += 10;
-
-  doc.setLineWidth(0.3);
-  doc.line(L, y, 195, y); y += 6;
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  line(`${role}:`, y, L);
-  line("Buyurtmachi:", y, 110); y += lh;
-
-  doc.setFont('helvetica', 'normal');
-  line("Abdulaxatov Akramjon Ibrohimovich", y, L);
-  line(d.name, y, 110); y += lh;
-  line(`"${service}"`, y, L);
-  line(`Passport/STIR: ${d.passport}`, y, 110); y += lh;
-  line("Tel: +998 90 405 78 01", y, L);
-  line(`Tel: ${d.phone}`, y, 110); y += lh;
-  line("Marg'ilon, O'zbekiston", y, L);
-  y = wrap(d.address, y, 80); y += 10;
-
-  line("Imzo: ___________________", y, L);
-  line("Imzo: ___________________", y, 110);
-
-  doc.save(`Shartnoma_${d.contractNum.replace('/', '-')}.pdf`);
-}
-
 // ── Init all ──
 document.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   setLang(currentLang);
-  const cfDate = document.getElementById('cf-date');
-  if (cfDate) cfDate.value = new Date().toISOString().split('T')[0];
   initParticles();
   loadCurrencyRates();
   loadWeather();

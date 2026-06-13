@@ -55,7 +55,6 @@
       <a href="#about"    data-i18n="nav.about">Haqimda</a>
       <a href="#skills"   data-i18n="nav.skills">Ko'nikmalar</a>
       <a href="#projects" data-i18n="nav.projects">Loyihalar</a>
-      <a href="#contract" data-i18n="nav.contract">Shartnoma</a>
       <a href="#contact"  data-i18n="nav.contact">Aloqa</a>
     </nav>
     <div class="header-controls">
@@ -159,80 +158,6 @@
 
   <div class="divider"></div>
 
-  <!-- Shartnoma -->
-  <div class="section" id="contract">
-    <div class="section-label reveal">Hamkorlik</div>
-    <h2 class="reveal">Shartnoma</h2>
-    <p class="contract-intro reveal">Xizmat turini tanlang, ma'lumotlarni to'ldiring — shartnoma avtomatik tuziladi va PDF sifatida yuklab olinadi.</p>
-
-    <div class="contract-type-row reveal">
-      <button class="contract-type-btn active" id="ctype-laser" onclick="selectContract('laser')">
-        <span>⚡</span> PROF LASER
-      </button>
-      <button class="contract-type-btn" id="ctype-kosib" onclick="selectContract('kosib')">
-        <span>🖥️</span> KOSIB.UZ
-      </button>
-    </div>
-
-    <form class="contract-form reveal" id="contract-form" onsubmit="return false">
-      <div class="cf-row">
-        <div class="cf-group">
-          <label>Mijoz Ism Familiyasi</label>
-          <input type="text" id="cf-name" placeholder="Karimov Jasur Aliyevich" required />
-        </div>
-        <div class="cf-group">
-          <label>Passport seriya yoki STIR raqami</label>
-          <input type="text" id="cf-passport" placeholder="AB1234567 yoki 123456789" required />
-        </div>
-      </div>
-      <div class="cf-group">
-        <label>Yashash manzili</label>
-        <input type="text" id="cf-address" placeholder="Farg'ona vil., Marg'ilon sh., Ko'cha, 12-uy" required />
-      </div>
-      <div class="cf-row">
-        <div class="cf-group">
-          <label>Telefon raqam</label>
-          <input type="tel" id="cf-phone" placeholder="+998 90 123 45 67" required />
-        </div>
-        <div class="cf-group">
-          <label>Xizmat umumiy narxi (so'm)</label>
-          <input type="number" id="cf-amount" placeholder="500000" min="1" required />
-        </div>
-      </div>
-      <div class="cf-group">
-        <label>Xizmat tavsifi</label>
-        <textarea id="cf-desc" rows="3" placeholder="Qanday xizmat kerak? Batafsil yozing..." required></textarea>
-      </div>
-      <div class="cf-row">
-        <div class="cf-group">
-          <label>Xizmat bajarish muddati</label>
-          <input type="text" id="cf-deadline" placeholder="7 ish kuni" required />
-        </div>
-        <div class="cf-group">
-          <label>Shartnoma sanasi</label>
-          <input type="date" id="cf-date" required />
-        </div>
-      </div>
-      <div class="contract-actions">
-        <button type="button" class="btn-contract-preview" onclick="previewContract()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
-          Ko'rish
-        </button>
-        <button type="button" class="btn-contract-pdf" onclick="downloadContractPDF()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          PDF yuklab olish
-        </button>
-      </div>
-    </form>
-
-    <!-- Shartnoma ko'rinishi -->
-    <div class="contract-preview-wrap" id="contract-preview-wrap" style="display:none">
-      <div class="contract-doc" id="contract-doc"></div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
   <!-- Contact -->
   <div class="section" id="contact">
     <div class="section-label reveal" data-i18n="contact.label">Muloqot</div>
@@ -308,7 +233,6 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
