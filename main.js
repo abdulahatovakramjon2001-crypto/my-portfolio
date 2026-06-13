@@ -23,35 +23,51 @@ async function loadCurrencyRates() {
   }
 }
 
-// ── Ob-havo (OpenWeatherMap, Marg'ilon) ──
+// ── Ob-havo (OpenWeatherMap → Open-Meteo zaxira) ──
+function weatherIcon(id) {
+  if (id === 800)                  return '☀️';
+  if (id === 801)                  return '🌤️';
+  if (id >= 802 && id <= 804)      return id === 804 ? '☁️' : '⛅';
+  if (id >= 700 && id < 800)       return '🌫️';
+  if (id >= 600 && id < 700)       return '❄️';
+  if (id >= 500 && id < 600)       return '🌧️';
+  if (id >= 300 && id < 400)       return '🌦️';
+  if (id >= 200 && id < 300)       return '⛈️';
+  return '🌡️';
+}
+
+function openMeteoIcon(code) {
+  const map = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
+  return map[code] ?? '🌡️';
+}
+
 async function loadWeather() {
+  const iconEl = document.getElementById('weather-icon');
+  const tempEl = document.getElementById('weather-temp');
+
+  // 1. OpenWeatherMap
   try {
     const key = '8a5f0c93887df008622bd665b4a790bb';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=Margilan,UZ&appid=${key}&units=metric`;
-    const res = await fetch(url);
+    const res  = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Margilan,UZ&appid=${key}&units=metric`);
     const data = await res.json();
-
+    if (data.cod === 401 || data.cod === '401') throw new Error('key_not_ready');
     const temp  = Math.round(data.main.temp);
     const feels = Math.round(data.main.feels_like);
-    const id    = data.weather[0].id;
+    iconEl.textContent = weatherIcon(data.weather[0].id);
+    tempEl.textContent = `${temp}°C`;
+    document.getElementById('weather-widget').title = `His qilinadi: ${feels}°C`;
+    return;
+  } catch (_) {}
 
-    let icon;
-    if (id === 800)               icon = '☀️';
-    else if (id === 801)          icon = '🌤️';
-    else if (id >= 802 && id <= 804) icon = id === 804 ? '☁️' : '⛅';
-    else if (id >= 700 && id < 800)  icon = '🌫️';
-    else if (id >= 600 && id < 700)  icon = '❄️';
-    else if (id >= 500 && id < 600)  icon = '🌧️';
-    else if (id >= 300 && id < 400)  icon = '🌦️';
-    else if (id >= 200 && id < 300)  icon = '⛈️';
-    else                             icon = '🌡️';
-
-    document.getElementById('weather-icon').textContent = icon;
-    document.getElementById('weather-temp').textContent = `${temp}°C`;
-    document.getElementById('weather-widget').title = `His qilinadi: ${feels}°C · ${data.weather[0].description}`;
-  } catch (e) {
-    document.getElementById('weather-icon').textContent = '🌡️';
-    document.getElementById('weather-temp').textContent = '--°C';
+  // 2. Open-Meteo zaxira
+  try {
+    const res  = await fetch('https://api.open-meteo.com/v1/forecast?latitude=40.4736&longitude=71.7278&current=temperature_2m,weather_code&timezone=Asia%2FTashkent');
+    const data = await res.json();
+    iconEl.textContent = openMeteoIcon(data.current.weather_code);
+    tempEl.textContent = `${Math.round(data.current.temperature_2m)}°C`;
+  } catch (_) {
+    iconEl.textContent = '🌡️';
+    tempEl.textContent = '--°C';
   }
 }
 
