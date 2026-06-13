@@ -23,6 +23,34 @@ async function loadCurrencyRates() {
   }
 }
 
+// ── Ob-havo (Open-Meteo, Toshkent) ──
+async function loadWeather() {
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=41.2995&longitude=69.2401&current=temperature_2m,weather_code&timezone=Asia%2FTashkent';
+    const res = await fetch(url);
+    const data = await res.json();
+    const temp = Math.round(data.current.temperature_2m);
+    const code = data.current.weather_code;
+
+    const icons = {
+      0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+      45:'🌫️', 48:'🌫️',
+      51:'🌦️', 53:'🌦️', 55:'🌧️',
+      61:'🌧️', 63:'🌧️', 65:'🌧️',
+      71:'❄️', 73:'❄️', 75:'❄️',
+      80:'🌦️', 81:'🌧️', 82:'⛈️',
+      95:'⛈️', 96:'⛈️', 99:'⛈️',
+    };
+    const icon = icons[code] ?? '🌡️';
+
+    document.getElementById('weather-icon').textContent = icon;
+    document.getElementById('weather-temp').textContent = temp + '°C';
+  } catch (e) {
+    document.getElementById('weather-icon').textContent = '🌡️';
+    document.getElementById('weather-temp').textContent = '--°C';
+  }
+}
+
 // ── Particles canvas ──
 function initParticles() {
   const canvas = document.getElementById('particles');
@@ -436,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setLang(currentLang);
   initParticles();
   loadCurrencyRates();
+  loadWeather();
   initScrollReveal();
   initStagger();
   initHeader();

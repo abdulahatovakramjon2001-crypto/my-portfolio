@@ -269,6 +269,21 @@ body::before {
   margin-left: 8px;
 }
 
+.weather-item {
+  color: var(--text-muted);
+  gap: 4px;
+}
+
+#weather-temp {
+  font-weight: 700;
+  color: #60c8f5;
+}
+
+#weather-city {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+}
+
 /* ── Header ── */
 header {
   position: fixed;
